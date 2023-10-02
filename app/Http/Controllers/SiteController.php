@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mail\mensaje;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Http;
 
 use App\Models\Product;
 use App\Models\Category;
@@ -14,8 +15,14 @@ use App\Models\Review;
 class SiteController extends Controller
 {
 
-    public function productJson(){
-        return view('ejercicio.products');
+    public function admin_products(){
+        return view('e-commerce.admin-products');
+    }
+    public function admin_employees(){
+        
+        $response = Http::get('http://127.0.0.1:3000/api/v1/employee');
+        $employees = $response->object();
+        return view('e-commerce.admin-employees', compact('employees'));
     }
     public function productDetail($category_id = null,$product_id = null,Request $req){
         $categories = Category::all();

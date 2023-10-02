@@ -31,7 +31,9 @@ Route::get('/productsByCat', [SiteController::class, 'productsByCategory'])->nam
 Route::get('/contact', [SiteController::class, 'contact'])->name("contact");
 Route::post('/contact', [SiteController::class, 'contact'])->name("contact_post");
 
-Route::get('/admin/products', [SiteController::class, 'productJson'])->name('adminProduct');
+Route::get('/admin/products', [SiteController::class, 'admin_products'])->name('adminProduct');
+
+Route::get('/admin/employees', [SiteController::class, 'admin_employees'])->name('admin_employees');
 /*
 Route::get('/greeting', function () {
     return 'Hello World';
