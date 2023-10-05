@@ -29,11 +29,18 @@ Route::get('/product-list/{category_id?}', [SiteController::class, 'product'])->
 Route::get('/productsByCat', [SiteController::class, 'productsByCategory'])->name("productsByCat");
 
 Route::get('/contact', [SiteController::class, 'contact'])->name("contact");
+
 Route::post('/contact', [SiteController::class, 'contact'])->name("contact_post");
 
-Route::get('/admin/products', [SiteController::class, 'admin_products'])->name('adminProduct');
+Route::get('/admin/products', [SiteController::class, 'admin_products'])->name('admin_products');
 
 Route::get('/admin/employees', [SiteController::class, 'admin_employees'])->name('admin_employees');
+
+Route::get('/admin/users', [SiteController::class, 'admin_users'])->name('admin_users');
+
+Route::post('/admin/users', [SiteController::class, 'admin_users'])->name('admin_users_post');
+
+Route::get('/admin/orders', [SiteController::class, 'admin_orders'])->name("admin_orders");
 /*
 Route::get('/greeting', function () {
     return 'Hello World';

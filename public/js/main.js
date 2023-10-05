@@ -240,6 +240,62 @@
 
 $(document).ready(()=>{
 
+    //Registar Usuarios
+    $("#registrarUsuario").submit(function(event) {
+        event.preventDefault();
+        // Obtiene los datos del formulario en el formato correcto
+        var data = {
+            first_name: $("#first_name").val(),
+            last_name: $("#last_name").val(),
+            email: $("#email").val(),
+            phone: $("#phone").val(),
+            address: $("#address").val(),
+            password: $("#password").val(),
+        };
+    
+        // Envía los datos a la API por AJAX
+        $.ajax({
+            url: 'http://localhost:3000/api/v1/user',
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json', // Establece el tipo de contenido a JSON
+            data: JSON.stringify(data), // Convierte los datos a formato JSON
+            success: function(response) {
+                console.log('Datos Enviados Correctamente', data);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+    //Termina Registrar Usuarios
+
+    //inicia mostrar ordenes
+    new DataTable('#tblOrders', {
+        footerCallback: function (row, data, start, end, display) {
+            let api = this.api();
+            let total = 0;
+    
+            // Obtener los datos de las filas de la página actual
+            let currentPageData = api.rows({ page: 'current' }).data();
+    
+            // Filtrar las filas para obtener solo las con status "approved"
+            let filteredData = currentPageData.filter(function (row) {
+                return row[4] === 'approved';
+            });
+    
+            // Calcular el total de la página actual para las filas "approved"
+            let pageTotal = filteredData.reduce(function (acc, row) {
+                return acc + parseFloat(row[3].replace('$', '').replace(',', ''));
+            }, 0);
+    
+            // Actualizar el pie de página con los totales
+            $('tfoot th:last-child').html('$' + pageTotal.toFixed(2));
+        }
+    });
+    //Temina Mostrar ordenes
+
+    
     $('#selectCategories').select2({
         ajax:{
             url:'/api/categories',
@@ -268,8 +324,8 @@ $(document).ready(()=>{
             let table = new DataTable('#tblProducts');
             //table.destroy();
         });
-    
-        
+ 
     });
 });
+
 

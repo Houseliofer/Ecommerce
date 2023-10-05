@@ -42,7 +42,10 @@
                         <td>{{$e->first_name}} {{$e->last_name}}</td>
                         <td>{{$e->email}}</td>
                         <td>{{$e->gender}}</td>
-                        <td>{{$e->salary}}</td>
+                        <td>@isset($e->salary)
+                            {{$e->salary}}
+                            @endisset
+                        </td>
                         <td>{{$e->department}}</td>
                     </tr>
                 @endforeach
